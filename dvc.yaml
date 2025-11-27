@@ -1,0 +1,35 @@
+stages:
+  collect_data:
+    cmd: uv run src/collection.py
+    deps:
+    - src/collection.py
+    params:
+    - params.toml:
+      - data
+      - output.input_data
+    outs:
+    - data/input.txt
+
+  process_data:
+    cmd: uv run src/process.py
+    deps:
+    - src/process.py
+    - data/input.txt
+    params:
+    - params.toml:
+      - clustering
+      - output.metrics_file
+    metrics:
+    - data/metrics.json
+
+  visualize_results:
+    cmd: uv run src/visualize.py
+    deps:
+    - src/visualize.py
+    - data/metrics.json
+    params:
+    - params.toml:
+      - visualization
+      - output.visualization
+    outs:
+    - data/image.png

@@ -1,0 +1,79 @@
+schema: '2.0'
+stages:
+  collect_data:
+    cmd: uv run src/collection.py
+    deps:
+    - path: src/collection.py
+      hash: md5
+      md5: 7193136243e5c5afe3f2e6f4e505b15f
+      size: 3320
+    params:
+      params.toml:
+        data:
+          url: https://www.ncei.noaa.gov/access/services/data/v1
+          dataset: daily-summaries
+          stations:
+          - USW00094728
+          - USW00023174
+          - USW00013874
+          - USW00012960
+          - USW00003017
+          start_date: '2023-01-01'
+          end_date: '2023-12-31'
+          dataTypes:
+          - TMAX
+          - TMIN
+        output.input_data: data/input.txt
+    outs:
+    - path: data/input.txt
+      hash: md5
+      md5: bde726256222e943d067a6f74b13451e
+      size: 1072
+  process_data:
+    cmd: uv run src/process.py
+    deps:
+    - path: data/input.txt
+      hash: md5
+      md5: bde726256222e943d067a6f74b13451e
+      size: 1072
+    - path: src/process.py
+      hash: md5
+      md5: 672077189e544cbea76f2c35c5281585
+      size: 3396
+    params:
+      params.toml:
+        clustering:
+          n_clusters: 3
+          random_state: 42
+          max_iter: 100
+          n_init: 10
+        output.metrics_file: data/metrics.json
+    outs:
+    - path: data/metrics.json
+      hash: md5
+      md5: 5972874377aebc4fa54b0796c66e2061
+      size: 6302
+  visualize_results:
+    cmd: uv run src/visualize.py
+    deps:
+    - path: data/metrics.json
+      hash: md5
+      md5: 5972874377aebc4fa54b0796c66e2061
+      size: 6302
+    - path: src/visualize.py
+      hash: md5
+      md5: 2f6edc5df869cc5182dc3c63830de83a
+      size: 4040
+    params:
+      params.toml:
+        output.visualization: data/image.png
+        visualization:
+          figure_width: 12
+          figure_height: 8
+          dpi: 300
+          colormap: viridis
+    outs:
+    - path: data/image.png
+      hash: md5
+      md5: 9394d2f551bbeed09ed0bf8d9f9dc21e
+      size: 385951
