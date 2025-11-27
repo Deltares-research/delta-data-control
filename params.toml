@@ -1,0 +1,33 @@
+# Configuration for K-Means Clustering Demo
+# Focus: Version-controlled parameters for reproducibility
+
+[data]
+# NOAA Climate Data API endpoint
+url = "https://www.ncei.noaa.gov/access/services/data/v1"
+dataset = "daily-summaries"
+# Sample stations for temperature data (US stations)
+stations = ["USW00094728", "USW00023174", "USW00013874", "USW00012960", "USW00003017"]
+start_date = "2023-01-01"
+end_date = "2023-12-31"
+# Data fields to retrieve
+dataTypes = ["TMAX", "TMIN"]  # Maximum and minimum temperature
+
+[clustering]
+# K-means parameters
+n_clusters = 3
+random_state = 42
+max_iter = 100
+n_init = 10
+
+[output]
+# Output file paths
+input_data = "data/input.txt"
+metrics_file = "data/metrics.json"
+visualization = "data/image.png"
+
+[visualization]
+# Plot settings
+figure_width = 12
+figure_height = 8
+dpi = 300
+colormap = "viridis"
