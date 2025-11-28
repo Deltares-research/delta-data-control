@@ -46,7 +46,7 @@ stages:
           n_clusters: 3
           random_state: 42
           max_iter: 300
-          n_init: 10
+          n_init: 12
         output.metrics_file: data/metrics.json
     outs:
     - path: data/metrics.json
