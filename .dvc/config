@@ -1,0 +1,6 @@
+[core]
+    remote = minio
+['remote "minio"']
+    url = s3://field-data-flows/delta-data-control
+    endpointurl = https://s3.deltares.nl
+    region = us-east-1
