@@ -16,7 +16,7 @@ dataTypes = ["TMAX", "TMIN"]  # Maximum and minimum temperature
 # K-means parameters
 n_clusters = 3
 random_state = 42
-max_iter = 100
+max_iter = 300
 n_init = 10
 
 [output]
